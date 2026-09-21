@@ -1,0 +1,42 @@
+[
+  {
+    "id": 1,
+    "nombre": "Cesar",
+    "apellido": "Fiad",
+    "email": "cesarfiad2000@gmail.com",
+    "contraseña": "1111",
+    "activo": true
+  },
+  {
+    "id": 2,
+    "nombre": "Lara",
+    "apellido": "Avila Diaz",
+    "email": "laraavila2000@gmail.com",
+    "contraseña": "12345",
+    "activo": true
+  },
+  {
+    "id": 4,
+    "nombre": "Noelia",
+    "apellido": "Fiad",
+    "email": "noeliafiad2000@gmail.com",
+    "contraseña": "12344",
+    "activo": true
+  },
+  {
+    "id": 5,
+    "nombre": "Fernando",
+    "apellido": "Fiad",
+    "email": "fernandofiad2000@gmail.com",
+    "contraseña": "23445",
+    "activo": false
+  },
+  {
+    "id": 6,
+    "nombre": "Oriana",
+    "apellido": "Fiad",
+    "email": "Orianafiad2017@gmail.com",
+    "contraseña": "9999",
+    "activo": true
+  }
+]

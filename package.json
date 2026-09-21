@@ -1,0 +1,21 @@
+{
+  "name": "tiendamates",
+  "version": "1.0.0",
+  "description": "server Express para gestionar usuarios, productos y ventas",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+   "start": "node index.js",
+    "dev": "node --watch index.js"
+  },
+  "dependencies": 
+  {
+    "express": "^5.2.1",
+    "dotenv": "^18.0.0"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+  
+
+}

@@ -1,0 +1,47 @@
+[
+  {
+    "id": 1,
+    "nombre": "Mate Camionero ",
+    "descripcion": "Mate de acero inoxidable con bombilla y funda de cuero.",
+    "precio": 43000,
+    "imagen": "https://http2.mlstatic.com/D_NQ_NP_2X_991905-MLA50118788288_052022-F.webp",
+    "stock": 10,
+    "disponible": true
+  },
+  {
+    "id": 2,
+    "nombre": "Mate de Madera",
+    "descripcion": "Mate de madera con bombilla de regalo.",
+    "precio": 35000,
+    "imagen": "https://http2.mlstatic.com/D_NQ_NP_2X_991905-MLA50118788288_052022-F.webp",
+    "stock": 5,
+    "disponible": true
+  },
+  {
+    "id": 3,
+    "nombre": "Mate torpedo",
+    "descripcion": "Mate torpedo cincelado en lacre.",
+    "precio": 25000,
+    "imagen": "https://http2.mlstatic.com/D_NQ_NP_2X_991905-MLA50118788288_052022-F.webp",
+    "stock": 0,
+    "disponible": false
+  },
+  {
+    "id": 4,
+    "nombre": "Mate galleta",
+    "descripcion": "Mate galleta con bombilla de acero inoxidable.",
+    "precio": 15000,
+    "imagen": "https://http2.mlstatic.com/D_NQ_NP_2X_991905-MLA50118788288_052022-F.webp",
+    "stock": 20,
+    "disponible": true
+  },
+  {
+    "id": 5,
+    "nombre": "Mate de Cerámica",
+    "descripcion": "Mate de cerámica pintado a mano.",
+    "precio": 20000,
+    "imagen": "https://http2.mlstatic.com/D_NQ_NP_2X_991905-MLA50118788288_052022-F.webp",
+    "stock": 15,
+    "disponible": true
+  }
+]
