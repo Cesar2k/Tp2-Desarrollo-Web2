@@ -4,6 +4,7 @@ import dotenv from "dotenv";
 import usuariosRouter from "./routes/usuarios.router.js";
 import productosRouter from "./routes/productos.router.js";
 import ventasRouter from "./routes/ventas.router.js";
+import logger from "./middlewares/logger.middleware.js";
 
 dotenv.config({quiet: true});
 
@@ -12,6 +13,7 @@ const PORT = process.env.PORT || 3000;
 
 //aca usamos middleware para parsear el body de las requests (convert body de las peticiones (JSON) a un objeto JS)
 
+app.use(logger);
 app.use(express.json());
 app.use('/usuarios', usuariosRouter);
 app.use('/productos', productosRouter);
