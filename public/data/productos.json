@@ -1,0 +1,83 @@
+[
+
+  {
+    "id": 1,
+    "nombre": "Mate Torpedo",
+    "descripcion": "Calabaza natural con virola de acero",
+    "precio": 30000,
+    "tipo": "mate",
+    "imagen": "img/torpedo.jpg"
+  },
+  {
+    "id": 2,
+    "nombre": "Mate Imperial Base Alpaca",
+    "descripcion": "Calabaza pulida con base de alpaca artesanal",
+    "precio": 40000,
+    "tipo": "mate",
+    "imagen": "img/imperialbasealpaca.JPEG"
+  },
+  {
+    "id": 3,
+    "nombre": "Bombilla Pico Loro 17cm",
+    "descripcion": "Acero inoxidable, filtro desmontable",
+    "precio": 12000,
+    "tipo": "bombilla",
+    "imagen": "img/bombilla17.jpg"
+  },
+  {
+    "id": 4,
+    "nombre": "Bombilla Plana",
+    "descripcion": "Acero inoxidable, estilo clásico",
+    "precio": 8000,
+    "tipo": "bombilla",
+    "imagen": "img/plana.jpg"
+  },
+  {
+    "id": 5,
+    "nombre": "Tapa Antiviento",
+    "descripcion": "Protege la yerba del viento",
+    "precio": 20000,
+    "tipo": "extra",
+    "imagen": "img/tapaantiviento.jpg"
+  },
+  {
+    "id": 6,
+    "nombre": "Canasto cuero color Borravino",
+    "descripcion": "Hecho a mano, ideal para guardar bombillas",
+    "precio": 30000,
+    "tipo": "extra",
+    "imagen": "img/canastocuero.jpg"
+  }, 
+  {
+    "id": 7,
+    "nombre": "Bombilla Pico Loro 17cm",
+    "descripcion": "Bombilla recomedada para vos",
+    "precio": 25000,
+    "tipo": "Recomendado",
+    "imagen": "img/bombilla17.jpg"
+  },
+{
+    "id": 8,
+    "nombre": "Canasta de cuero para auto",
+    "descripcion": "Canasta de cuero para auto recomedada para vos",
+    "precio": 10000,
+    "tipo": "Recomendado",
+    "imagen": "img/canastocueroparaauto.jpg"
+},
+{
+    "id": 9,
+    "nombre": "Tapa antiviento",
+    "descripcion": "Tapa antiviento recomedada para vos",
+    "precio": 15000,
+    "tipo": "Recomendado",
+    "imagen": "img/tapaantiviento.jpg"
+},
+{
+    "id": 10,
+    "nombre": "Mate Torpedo base alpaca con bolitas",
+    "descripcion": "Mate Tropedo Base Alpaca con bolitas recomedada para vos",
+    "precio": 35000,
+    "tipo": "Recomendado",
+    "imagen": "img/torpedo.jpg"
+}
+]

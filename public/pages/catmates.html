@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <title>Leufu Mates - Mates</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+
+<body>
+
+  <button id="btnCarritoFlotante">🛒</button> <!--Iba a usar un carrito SVG para evitar el emoji, pero no quedo TAAAAN FEO-->
+
+  <header></header>
+
+  <main>
+    <h1>Mates</h1>
+    <p>Elegí entre nuestros mates artesanales</p>
+    <div class="card-container"></div>
+  </main>
+
+  <aside id="carritoSidebar">
+    <h2>Carrito</h2>
+    <ul id="listaCarrito"></ul>
+
+    <div id="carritoTotal">
+      <p><strong>Total:</strong> $<span id="totalMonto">0</span></p>
+    </div>
+
+    <button id="vaciarCarrito">Vaciar carrito</button>
+  </aside>
+
+ <footer class="footer-min">
+  <p>Seguinos</p>
+
+  <div class="footer-redes">
+    <a href="https://instagram.com/leufumates" target="_blank">Instagram</a>
+    <a href="https://wa.me/5492942650209" target="_blank">WhatsApp</a> 
+  </div>
+
+  <p>2025 Leufu Mates · Patagonia Argentina</p>
+</footer>
+
+
+  <script src="../js/navbar.js"></script>
+  <script src="../js/productos.js"></script>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => mostrarProductos("mate"));
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,487 @@
+/* 
+Todos los estilos usados y por usar
+*/
+
+body {
+  font-family: 'Roboto', sans-serif;
+  background: url("../img/fondoleufu.png") no-repeat center center fixed;
+  background-size: cover;
+  color: #ffffff;
+  margin: 0;
+  padding: 0;
+}
+
+h1, h2, h3 {
+  font-family: 'Montserrat', sans-serif;
+  color: #b9c6ca;
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+main {
+  max-width: 1200px;
+  margin: auto;
+  padding: 20px;
+}
+
+main p {
+  text-align: center;
+  font-size: 1.1em;
+  margin-bottom: 20px;
+}
+
+
+/*
+navbar
+*/
+
+nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;  
+  background-color: #86d130;
+  padding: 10px 20px;
+}
+
+/* Logo que deberia cambiar por un webp, se ve horrible el fondo */
+nav img {
+  border-radius: 8px;
+}
+
+/* Casi centrado */
+nav ul {
+  flex: 1;
+  display: flex;
+  justify-content: center;  
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+nav ul li {
+  margin: 0 10px;
+}
+
+nav ul li a {
+  font-family: 'Poppins', sans-serif;
+  font-weight: bold;
+  font-size: 20px;
+  color: #0c0c0c;
+  text-decoration: none;
+  padding: 8px 12px;
+  border-radius: 4px;
+  transition: 0.3s ease;
+}
+
+nav ul li a:hover {
+  background-color: #4a6e15;
+}
+
+/* a la derecha: usuario + botón  */
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+/* Etiqueta del usuario */
+.usuario {
+  background: #2b2b2b;
+  padding: 6px 12px;
+  border-radius: 6px;
+  color: #fff;
+  font-size: 0.9em;
+}
+
+/* Boton cerrar sesión */
+.btnLogout {
+  background-color: #ff4d4d;
+  color: white;
+  padding: 8px 15px;
+  border-radius: 6px;
+  font-weight: bold;
+  border: none;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.btnLogout:hover {
+  background-color: #cc0000;
+  transform: scale(1.05);
+}
+
+
+
+/* 
+   Cards de los productos
+*/
+
+.card-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.card {
+  max-width: 220px;
+  padding: 15px;
+  text-align: center;
+  background: #000000;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.25);
+  transition: transform 0.3s ease;
+}
+
+.card:hover {
+  transform: scale(1.05);
+}
+
+.card img {
+  width: 100%;
+  margin-bottom: 10px;
+  border-radius: 10px;
+}
+
+.card h3 {
+  margin-bottom: 5px;
+  font-size: 1.2em;
+  color: #4CAF50;
+}
+
+.card p {
+  color: #fff7f7;
+  font-weight: bold;
+}
+
+.sub-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  justify-items: center;
+  margin-bottom: 40px;
+  width: 100%;
+}
+
+
+/* 
+   Contador + / - 
+*/
+
+.contador {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin: 10px 0;
+}
+
+.contador button {
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  width: 30px;
+  height: 30px;
+  font-size: 18px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.contador button:hover {
+  transform: scale(1.1);
+  background-color: #388E3C;
+}
+
+.cantidad {
+  font-size: 18px;
+  font-weight: bold;
+  width: 25px;
+  text-align: center;
+}
+
+
+/*
+  Boton que permite agregar al carrito
+*/
+
+.btn-carrito {
+  background-color: #007bff;
+  color: #ffffff;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.btn-carrito:hover {
+  background-color: #0056b3;
+}
+
+
+/*
+Login y registro 
+*/
+
+body.login,
+body.registro {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #ffffff;
+  color: #000;
+}
+
+.form-container {
+  width: 320px;
+  padding: 40px 30px;
+  text-align: center;
+  background: rgba(0,0,0,0.7);
+  border-radius: 12px;
+  box-shadow: 0 0 15px rgba(0,0,0,0.2);
+  color: #ffffff;
+}
+
+.form-container img {
+  margin-bottom: 10px;
+  border-radius: 50%;
+}
+
+.form-container h1 {
+  margin-bottom: 20px;
+  color: #86d130;
+}
+
+.form-container input {
+  width: 90%;
+  margin: 8px 0;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+.form-container button {
+  margin-top: 10px;
+  padding: 10px 20px;
+  background-color: #86d130;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.form-container button:hover {
+  background-color: #4a6e15;
+}
+
+
+/* 
+   Footer o pie de página
+*/
+
+.footer-min {
+  background-color: #30d61a;
+  text-align: center;
+  padding: 15px;
+  color: rgb(37, 29, 29);
+  margin-top: 40px;
+}
+.footer-redes {
+  margin-top: 15px;
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+}
+
+.footer-redes a {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  color: #ffffff;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1.15em;
+
+  padding: 6px 12px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+
+  transition: all 0.3s ease;
+}
+
+.footer-redes a:hover {
+  background: #86d130;    
+  color: #000;
+  transform: scale(1.08);
+}
+
+/* 
+  Carrito lateral 
+*/
+
+#carritoSidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 260px;
+  height: 100vh;
+  background-color: #1e1e1e;
+  color: white;
+  padding: 20px;
+  box-shadow: 3px 0 10px rgba(0,0,0,0.5);
+  overflow-y: auto;
+  transform: translateX(-300px);
+  transition: 0.4s ease;
+  z-index: 1000;
+}
+
+#carritoSidebar.mostrar {
+  transform: translateX(0);
+}
+
+#carritoSidebar h2 {
+  text-align: center;
+  color: #86d130;
+}
+
+#listaCarrito li {
+  background: #2a2a2a;
+  padding: 10px;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+#vaciarCarrito {
+  width: 100%;
+  padding: 8px;
+  background-color: #ff4d4d;
+  border: none;
+  border-radius: 6px;
+  color: white;
+  cursor: pointer;
+  margin-top: 15px;
+}
+
+#vaciarCarrito:hover {
+  background-color: #e60000;
+}
+
+
+/* 
+  Botón flotante carrito (quedo bien feo)
+*/
+
+#btnCarritoFlotante {
+  position: fixed;
+  bottom: 25px;
+  right: 25px;
+  width: 60px;
+  height: 60px;
+  background-color: #333f2b;
+  border-radius: 50%;
+  border: none;
+  color: white;
+  font-size: 28px;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  z-index: 2000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#btnCarritoFlotante:hover {
+  transform: scale(1.1);
+  background-color: #5fa01e;
+}
+
+
+/* 
+   responsive para celus y tablets, etc
+*/
+
+@media (max-width: 768px) {
+
+  /* ----- NAVBAR ----- */
+  nav {
+    flex-direction: column;
+    padding: 15px 10px;
+    text-align: center;
+  }
+
+  nav img {
+    margin: 0 auto 10px auto;
+  }
+
+  nav ul {
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 10px;
+    width: 100%;
+    padding: 0;
+  }
+
+  nav ul li {
+    margin: 0;
+  }
+
+  nav ul li a {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    font-size: 1.1em;
+  }
+
+  /* Contenedor de usuario + logout */
+  .nav-right {
+    width: 100%;
+    justify-content: center;
+    margin-top: 12px;
+  }
+
+  .btnLogout {
+    width: 90%;
+    text-align: center;
+  }
+
+  /* ----- CARDS ----- */
+  .card-container {
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+  }
+
+  .card {
+    max-width: 95%;
+    width: 90%;
+  }
+
+  .sub-container {
+    grid-template-columns: 1fr; 
+  }
+
+  /* carrito y su barra  */
+  #carritoSidebar {
+  width: 80vw;
+  transform: translateX(-100%);  
+}
+
+#carritoSidebar.mostrar {
+  transform: translateX(0); 
+  }
+
+  /*  Boton flotante carrito  */
+  #btnCarritoFlotante {
+    bottom: 20px;
+    right: 20px;
+    width: 55px;
+    height: 55px;
+    font-size: 26px;
+  }
+}
+

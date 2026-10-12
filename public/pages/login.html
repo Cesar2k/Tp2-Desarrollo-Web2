@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <title>Login</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+
+<body class="login">
+
+  <div class="form-container">
+
+    <a href="../index.html">
+      <img src="../img/ingreso.jpg" width="100" height="100">
+    </a>
+
+    <h1>Iniciar Sesión</h1>
+
+    <form onsubmit="event.preventDefault(); login();">  <!-- Llama a la funcion login  del navbar.js -->
+      <label>Email</label>
+      <input type="email" id="email" required><br><br>   <!-- campo requerido para el mail, sin un @ no va a andar-->
+
+      <label>Contraseña</label>
+      <input type="password" id="password" required><br><br>   <!-- campo requerido para la contraseña. requerido sino no entra a la pagina-->
+
+      <button type="submit">Ingresar</button>
+    </form>
+  </div>
+
+  <script src="../js/navbar.js"></script>
+  <script src="../js/productos.js"></script>
+
+</body>
+</html>
