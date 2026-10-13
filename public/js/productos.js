@@ -92,14 +92,20 @@ async function mostrarProductosHome() {                                     //la
 async function mostrarProductos(tipo) {                                                              //funcion con la que mostramos los productos por categoria
   try {
     // los productos vienen de la API (igual que en la home).
-    // El filtro de abajo (p.tipo === tipo) no cambia: los productos de la API traen el campo tipo
-    // ("mate", "bombilla" o "extra"), que es lo que cada página le pasa a esta función.
+    // los productos de la API traen el campo tipo ("mate", "bombilla" o "extra").
+    // productos.html le pasa "todos" o una categoria segun el boton de filtro.
     const productos = await obtenerProductos();
 
     const contenedor = document.querySelector(".card-container");                                   // seleccionamos el contenedor donde se van a mostrar los productos
     contenedor.innerHTML = "";
 
-    const filtrados = productos.filter(p => p.tipo === tipo);
+    // si el tipo es "todos" se muestran todos; si no, solo los de esa categoria
+    const filtrados = tipo === "todos" ? productos : productos.filter(p => p.tipo === tipo);
+
+    if (filtrados.length === 0) {                                                                    // si no hay productos de esa categoria
+      contenedor.innerHTML = "<p>No hay productos en esta categoría por ahora.</p>";
+      return;
+    }
 
     filtrados.forEach(p => {
       const cantidadActual = parseInt(localStorage.getItem(`cantidad_${p.id}`)) || 0;
@@ -125,6 +131,20 @@ async function mostrarProductos(tipo) {                                         
   } catch (err) {
     console.error("Error cargando productos:", err);
   }
+}
+
+
+// funcion para los botones de filtro de la pagina productos.html
+function activarFiltros() {
+  const botones = document.querySelectorAll(".btn-filtro");                // todos los botones de filtro
+
+  botones.forEach(boton => {
+    boton.onclick = () => {
+      botones.forEach(b => b.classList.remove("activo"));                  // le sacamos el resaltado a todos
+      boton.classList.add("activo");                                       // y se lo ponemos al que se clickeo
+      mostrarProductos(boton.dataset.tipo);                                // mostramos los productos de ese tipo ("todos", "mate", etc.)
+    };
+  });
 }
 
 

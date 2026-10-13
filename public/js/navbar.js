@@ -11,9 +11,7 @@ const basePages = navEnPages ? "./" : "./pages/";
 // Ítems del menú
 const NavItems = [
   { titulo: "Home", url: baseHome },
-  { titulo: "Mates", url: basePages + "catmates.html" },
-  { titulo: "Bombillas", url: basePages + "catbombillas.html" },
-  { titulo: "Extras", url: basePages + "catextras.html" },
+  { titulo: "Productos", url: basePages + "productos.html" },   // una sola pagina con todos los productos y filtro por categoria
   { titulo: "Ingreso", url: basePages + "login.html" },
   { titulo: "Registro", url: basePages + "registrarse.html" },
   { titulo: "Cerrar sesión", url: "#", accion: "logout()" }
