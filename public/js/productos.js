@@ -1,15 +1,24 @@
 //Si no funciona la carga de productos rezar para que si. 
 
+
 // verificamos si estamos dentro de /pages/
 const estoyEnPages = window.location.pathname.includes("/pages/");
 
 // Cache de productos
 let productosCache = [];  // almacenamos los productos cargados para evitar múltiples fetches. Muy muy util 
 
-// Cargar JSON de productos. // ajustado la ruta del json para que funcione en pages y en la home 
-fetch(estoyEnPages ? "../data/productos.json" : "./data/productos.json")  
-  .then(r => r.json())
-  .then(data => productosCache = data);
+
+obtenerProductos()
+  .then(data => productosCache = data)
+  .catch(err => console.error("No se pudieron cargar los productos:", err));
+
+
+
+// Reemplaza a las tres variables que había antes (rutaImagen dentro de cada forEach y rutaImgCarrito).
+function rutaImagen(imagen) {
+  if (imagen.startsWith("http")) return imagen;
+  return estoyEnPages ? `../${imagen}` : `./${imagen}`;
+}
 
 
 // Funcion para mostrar los productos en el home o index 
@@ -27,16 +36,21 @@ async function mostrarProductosHome() {                                     //la
       return;
     }
 
-    const jsonPath = estoyEnPages ? "../data/productos.json" : "./data/productos.json";    //constante para la ruta del json como mas arriba y mas abajo tambien xd
-    const response = await fetch(jsonPath);                                                // con fetech pedimos elementos de json y () pasamos la ruta
-    const productos = await response.json();
+    //los productos vienen de la API.
+    // CÓMO: await espera a que obtenerProductos() responda y deja en "productos" el arreglo
+    //       (solo los que tienen stock, porque api.js pide ?disponible=true).
+    // Antes eran 3 líneas: armar la ruta del json, hacer el fetch y convertir con response.json().
+    const productos = await obtenerProductos();
 
     const tipos = ["Recomendado"];                                           // tipos de productos a mostrar en este caso mate, bombillas y extras
     contenedor.innerHTML = "";
 
     tipos.forEach(tipo =>                                                                   //foreach para recorrer cada tipo de producto 
       {
-      const grupo = productos.filter(p => p.tipo === tipo).slice(0, 4);
+      // los recomendados son los productos con destacado: true.
+      // CÓMO: filter se queda con los que cumplen la condición y slice(0, 4) toma los primeros 4.
+      // Antes se filtraba por tipo === "Recomendado", que eran productos repetidos en el json del front.
+      const grupo = productos.filter(p => p.destacado).slice(0, 4);
 
       const titulo = document.createElement("h2");                                         // creamos un elemento h2 para el titulo de cada tipo de producto                     
       titulo.textContent = tipo.charAt(0).toUpperCase() + tipo.slice(1) + "s";             // una manita para poner la primera letra en mayuscula y agregarle una s al final para pluralizar
@@ -46,13 +60,12 @@ async function mostrarProductosHome() {                                     //la
       subContainer.classList.add("sub-container");                                         // le agregamos la clase sub-container para estilos traida de css claramente. 
 
       grupo.forEach(p => {
-        const rutaImagen = estoyEnPages ? `../${p.imagen}` : `./${p.imagen}`;             //como sucede en varios lados ajutamos la ruta de la imagen segun si estamos en pages o en home
         const cantidadActual = parseInt(localStorage.getItem(`cantidad_${p.id}`)) || 0;   // obtenemos la cantidad actual del producto desde el localStorage (Tambien puede ser con Local )
 
         const card = document.createElement("div");
         card.classList.add("card");
         card.innerHTML = `
-          <img src="${rutaImagen}" alt="${p.nombre}" width="250" height="300">
+          <img src="${rutaImagen(p.imagen)}" alt="${p.nombre}" width="250" height="300"> <!-- [PASO 2] Cambio 5: imagen con rutaImagen() -->
           <h3>${p.nombre}</h3>
           <p><strong>$${p.precio.toLocaleString("es-AR")}</strong></p>
           <div class="contador">
@@ -78,9 +91,10 @@ async function mostrarProductosHome() {                                     //la
 // mostrar los productos por categoria. ma deficil que la miercole esto 
 async function mostrarProductos(tipo) {                                                              //funcion con la que mostramos los productos por categoria
   try {
-    const jsonPath = estoyEnPages ? "../data/productos.json" : "./data/productos.json";              // ajustado la ruta del json para que funcione en pages y en la home
-    const response = await fetch(jsonPath);                                                          // fetech como explicamos mas arriba. 
-    const productos = await response.json();
+    // los productos vienen de la API (igual que en la home).
+    // El filtro de abajo (p.tipo === tipo) no cambia: los productos de la API traen el campo tipo
+    // ("mate", "bombilla" o "extra"), que es lo que cada página le pasa a esta función.
+    const productos = await obtenerProductos();
 
     const contenedor = document.querySelector(".card-container");                                   // seleccionamos el contenedor donde se van a mostrar los productos
     contenedor.innerHTML = "";
@@ -88,13 +102,12 @@ async function mostrarProductos(tipo) {                                         
     const filtrados = productos.filter(p => p.tipo === tipo);
 
     filtrados.forEach(p => {
-      const rutaImagen = estoyEnPages ? `../${p.imagen}` : `./${p.imagen}`;
       const cantidadActual = parseInt(localStorage.getItem(`cantidad_${p.id}`)) || 0;
 
       const card = document.createElement("div");
       card.classList.add("card");
       card.innerHTML = `
-        <img src="${rutaImagen}" alt="${p.nombre}" width="250" height="300">
+        <img src="${rutaImagen(p.imagen)}" alt="${p.nombre}" width="250" height="300"> <!-- [PASO 2] Cambio 5: imagen con rutaImagen() -->
         <h3>${p.nombre}</h3>
         <p>${p.descripcion}</p>
         <p><strong>$${p.precio.toLocaleString("es-AR")}</strong></p>
@@ -211,11 +224,11 @@ function actualizarCarrito() {                                         //funcion
   total += p.cantidad * p.precio;
 
   const li = document.createElement("li");   // <- ESENCIAL
-  
-  const rutaImgCarrito = estoyEnPages ? `../${p.imagen}` : `./${p.imagen}`;
 
+  // [PASO 2] Cambio 5: la imagen del carrito usa rutaImagen() (antes había una variable rutaImgCarrito)
+  
   li.innerHTML = `
-    <img src="${rutaImgCarrito}" alt="${p.nombre}" width="60" height="60" style="border-radius:8px;"><br>
+    <img src="${rutaImagen(p.imagen)}" alt="${p.nombre}" width="60" height="60" style="border-radius:8px;"><br>
     <strong>${p.nombre}</strong><br>
     <button class="btnRestarCarrito">-</button>
     <span>${p.cantidad}</span>

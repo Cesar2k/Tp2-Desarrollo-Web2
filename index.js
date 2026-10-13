@@ -2,6 +2,8 @@
 import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
+import {fileURLToPath} from "url";
+import path from "path";    
 
 import usuariosRouter from "./routes/usuarios.router.js";
 import productosRouter from "./routes/productos.router.js";
@@ -11,10 +13,21 @@ import logger from "./middlewares/logger.middleware.js";
 
 dotenv.config({quiet: true});
 
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+
 const app = express();
 
 //habilitamos CORS para permitir solicitudes desde otros origenes
-app.use(cors());  //CORS (Cross-Origin Resource Sharing) es un mecanismo que permite que los recursos de un servidor sean solicitados desde otro dominio distinto al que sirve el recurso. En este caso, se está utilizando el middleware cors para habilitar CORS en la aplicación Express.
+const origenesPermitidos = (process.env.CORS_ORIGINS || "")
+    .split(",")
+    .map((origen) => origen.trim())
+    .filter(Boolean);
+
+app.use(cors({
+    origin: origenesPermitidos,                       //si el origen no está en la lista, crome nos bloquea la respuesta
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    allowedHeaders: ["Content-Type", "Authorization"] //autorizacion es para enviar token de autenticacion en el header
+}));
 
 const PORT = process.env.PORT || 3000;
 
@@ -27,13 +40,7 @@ app.use('/usuarios', usuariosRouter);
 app.use('/productos', productosRouter);
 app.use('/ventas', ventasRouter);
 
-app.use(express.static("public"));  //De lo ultimo agregado. hace que express sirva archivos estaticos (html, css, js) desde la carpeta public 
-
-//PROBAMOS UNA RUTA PARA VER COMO FUNCIONA
-app.get("/", (req, res) => {
-    res.send({ mensaje: "Hola mundo desde express!" });
-});
-
+app.use(express.static(path.join(__dirname, "public")));  //De lo ultimo agregado. hace que express sirva archivos estaticos (html, css, js) desde la carpeta public 
 
 app.listen(PORT, () => {
     console.log(`Servidor corriendo en http://localhost:${PORT}`);

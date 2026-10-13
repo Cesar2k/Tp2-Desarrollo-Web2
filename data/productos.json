@@ -1,12 +1,14 @@
 [
   {
     "id": 1,
-    "nombre": "Mate Camionero ",
+    "nombre": "Mate Camionero",
     "descripcion": "Mate de acero inoxidable con bombilla y funda de cuero.",
     "precio": 43000,
-    "imagen": "https://http2.mlstatic.com/D_NQ_NP_2X_991905-MLA50118788288_052022-F.webp",
+    "imagen": "img/camionero.JPEG",
     "stock": 10,
-    "disponible": true
+    "disponible": true,
+    "tipo": "mate",
+    "destacado": true
   },
   {
     "id": 2,
@@ -15,16 +17,20 @@
     "precio": 35000,
     "imagen": "https://http2.mlstatic.com/D_NQ_NP_2X_991905-MLA50118788288_052022-F.webp",
     "stock": 5,
-    "disponible": true
+    "disponible": true,
+    "tipo": "mate",
+    "destacado": false
   },
   {
     "id": 3,
     "nombre": "Mate torpedo",
     "descripcion": "Mate torpedo cincelado en lacre.",
     "precio": 25000,
-    "imagen": "https://http2.mlstatic.com/D_NQ_NP_2X_991905-MLA50118788288_052022-F.webp",
+    "imagen": "img/torpedo.jpg",
     "stock": 0,
-    "disponible": false
+    "disponible": false,
+    "tipo": "mate",
+    "destacado": false
   },
   {
     "id": 4,
@@ -33,7 +39,9 @@
     "precio": 15000,
     "imagen": "https://http2.mlstatic.com/D_NQ_NP_2X_991905-MLA50118788288_052022-F.webp",
     "stock": 20,
-    "disponible": true
+    "disponible": true,
+    "tipo": "mate",
+    "destacado": false
   },
   {
     "id": 5,
@@ -42,6 +50,85 @@
     "precio": 20000,
     "imagen": "https://http2.mlstatic.com/D_NQ_NP_2X_991905-MLA50118788288_052022-F.webp",
     "stock": 15,
-    "disponible": true
+    "disponible": true,
+    "tipo": "mate",
+    "destacado": false
+  },
+  {
+    "id": 6,
+    "nombre": "Mate Imperial Base Alpaca",
+    "descripcion": "Calabaza pulida con base de alpaca artesanal",
+    "precio": 40000,
+    "imagen": "img/imperialbasealpaca.JPEG",
+    "stock": 8,
+    "disponible": true,
+    "tipo": "mate",
+    "destacado": true
+  },
+  {
+    "id": 7,
+    "nombre": "Mate Torpedo base alpaca con bolitas",
+    "descripcion": "Torpedo de calabaza con base de alpaca y bolitas",
+    "precio": 35000,
+    "imagen": "img/imperial base bolita.JPEG",
+    "stock": 6,
+    "disponible": true,
+    "tipo": "mate",
+    "destacado": false
+  },
+  {
+    "id": 8,
+    "nombre": "Bombilla Pico Loro 17cm",
+    "descripcion": "Bombilla de alpaca pico de loro, 17 cm",
+    "precio": 12000,
+    "imagen": "img/bombilla17.jpg",
+    "stock": 15,
+    "disponible": true,
+    "tipo": "bombilla",
+    "destacado": true
+  },
+  {
+    "id": 9,
+    "nombre": "Bombilla Plana",
+    "descripcion": "Bombilla plana de acero inoxidable",
+    "precio": 8000,
+    "imagen": "img/plana.jpg",
+    "stock": 20,
+    "disponible": true,
+    "tipo": "bombilla",
+    "destacado": false
+  },
+  {
+    "id": 10,
+    "nombre": "Tapa Antiviento",
+    "descripcion": "Tapa de cuero para cebar con viento",
+    "precio": 20000,
+    "imagen": "img/tapaantiviento.jpg",
+    "stock": 10,
+    "disponible": true,
+    "tipo": "extra",
+    "destacado": true
+  },
+  {
+    "id": 11,
+    "nombre": "Canasto cuero color Borravino",
+    "descripcion": "Canasto matero de cuero color borravino",
+    "precio": 30000,
+    "imagen": "img/canastocuero.jpg",
+    "stock": 5,
+    "disponible": true,
+    "tipo": "extra",
+    "destacado": false
+  },
+  {
+    "id": 12,
+    "nombre": "Canasta de cuero para auto",
+    "descripcion": "Canasta matera de cuero para llevar en el auto",
+    "precio": 10000,
+    "imagen": "img/canastocueroparaauto.jpg",
+    "stock": 7,
+    "disponible": true,
+    "tipo": "extra",
+    "destacado": false
   }
 ]
