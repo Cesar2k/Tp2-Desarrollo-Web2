@@ -38,5 +38,13 @@
     "email": "Orianafiad2017@gmail.com",
     "contraseña": "9999",
     "activo": true
+  },
+  {
+    "id": 7,
+    "nombre": "Marcos",
+    "apellido": "Fiad",
+    "email": "Cesarfiad2000@hotmail.com",
+    "contraseña": "1234",
+    "activo": true
   }
 ]

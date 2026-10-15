@@ -18,22 +18,19 @@
     </a>
 
     <h1>Registro</h1>
-        <!--Formulario de registro que redirige a la página de login al enviarse los datos agregados aca--> 
-    <form action="./login.html" method="get">
+        <!--Formulario de registro: crea el usuario en el backend (POST /usuarios) con la funcion registrarse() de navbar.js-->
+    <form onsubmit="event.preventDefault(); registrarse();">
       <label>Nombre</label>
-      <input type="text" name="nombre" required><br><br>
+      <input type="text" id="nombre" required><br><br>
 
       <label>Apellido</label>
-      <input type="text" name="apellido" required><br><br>
+      <input type="text" id="apellido" required><br><br>
 
       <label>Email</label>
-      <input type="email" name="email" required><br><br>
+      <input type="email" id="email" required><br><br>
 
       <label>Contraseña</label>
-      <input type="password" name="password" required><br><br>
-
-      <label>Fecha de Nacimiento</label>
-      <input type="date" name="fecha" required><br><br>
+      <input type="password" id="password" required><br><br>
 
       <button type="submit">Registrarse</button>
     </form>
@@ -42,7 +39,6 @@
   <script src="../js/api.js"></script>
   <script src="../js/navbar.js"></script>
   <script src="../js/productos.js"></script>
-
 
 </body>
 </html>

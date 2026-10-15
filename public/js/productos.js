@@ -24,7 +24,7 @@ function rutaImagen(imagen) {
 // Funcion para mostrar los productos en el home o index 
 async function mostrarProductosHome() {                                     //la funcion que muestra los productos en home/index
   try {
-    const usuario = sessionStorage.getItem("usuario");                      // verificamos si hay usuario logueado
+    const usuario = obtenerUsuarioSesion();                                 // verificamos si hay usuario logueado (esta en navbar.js)
     const contenedor = document.querySelector(".card-container");           // seleccionamos el contenedor donde se van a mostrar los productos  
 
     if (!usuario) {                                                         // si no hay usuario logueado                      
@@ -277,6 +277,55 @@ function actualizarCarrito() {                                         //funcion
 }
 
 
+// COMPRA: manda el carrito al backend (POST /ventas) para generar la orden de compra
+async function finalizarCompra() {
+  const mensaje = document.getElementById("mensajeCompra");             // parrafo donde mostramos el resultado
+  const usuario = obtenerUsuarioSesion();                               // quien compra (guardado en sessionStorage al iniciar sesion)
+  const carrito = obtenerCarrito();                                     // que compra (guardado en localStorage)
+  const direccion = document.getElementById("direccionEnvio").value.trim();
+
+  // 1. validaciones antes de llamar al backend
+  if (!usuario) {
+    alert("Inicia sesión para poder comprar.");
+    window.location.href = estoyEnPages ? "./login.html" : "./pages/login.html";
+    return;
+  }
+  if (carrito.length === 0) {
+    mensaje.textContent = "El carrito está vacío.";
+    return;
+  }
+  if (!direccion) {
+    mensaje.textContent = "Ingresa una dirección de envío.";
+    return;
+  }
+
+  // 2. armamos la venta con el formato que espera el backend
+  const venta = {
+    id_usuario: usuario.id,
+    direccion: direccion,
+    productos: carrito.map(p => ({ id_producto: p.id, cantidad: p.cantidad }))
+  };
+
+  try {
+    const ventaCreada = await crearVenta(venta);                        // POST /ventas (esta en api.js)
+
+    // 3. si salio bien: vaciamos el carrito y mostramos el numero de orden y el total que calculo el backend
+    localStorage.removeItem("carrito");
+    actualizarCarrito();
+    document.getElementById("direccionEnvio").value = "";
+    mensaje.textContent = `¡Compra n.º ${ventaCreada.id} registrada! Total: $${ventaCreada.total.toLocaleString("es-AR")}`;
+
+    // 4. el stock cambio en el backend: volvemos a pedir los productos
+    productosCache = await obtenerProductos();
+    const filtroActivo = document.querySelector(".btn-filtro.activo");
+    if (filtroActivo) mostrarProductos(filtroActivo.dataset.tipo);      // pagina de productos
+    else mostrarProductosHome();                                        // home
+  } catch (error) {
+    mensaje.textContent = error.message;                                // por ejemplo: "Stock insuficiente para ..."
+  }
+}
+
+
 // boton de vaciar y carrito flotante 
 document.addEventListener("DOMContentLoaded", () => {                     //cuando el documento este cargado 
   const btnVaciar = document.getElementById("vaciarCarrito");            // seleccionamos el boton de vaciar carrito
@@ -286,6 +335,9 @@ document.addEventListener("DOMContentLoaded", () => {                     //cuan
       actualizarCarrito();                                             //y  actualizamos el carrito
     };
   }
+
+  const btnComprar = document.getElementById("finalizarCompra");         // boton de comprar del carrito
+  if (btnComprar) btnComprar.onclick = finalizarCompra;
 
   const btnCarrito = document.getElementById("btnCarritoFlotante");      // seleccionamos el boton flotante del carrito
   const carrito = document.getElementById("carritoSidebar");             // seleccionamos el barra que se desliza del carrito

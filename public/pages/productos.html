@@ -37,6 +37,14 @@
       <p><strong>Total:</strong> $<span id="totalMonto">0</span></p>
     </div>
 
+    <!-- Compra: se envia al backend (POST /ventas) con el usuario de la sesion -->
+    <div id="checkout">
+      <label for="direccionEnvio">Dirección de envío</label>
+      <input type="text" id="direccionEnvio" placeholder="Calle, número, ciudad">
+      <button id="finalizarCompra">Finalizar compra</button>
+      <p id="mensajeCompra"></p>
+    </div>
+
     <button id="vaciarCarrito">Vaciar carrito</button>
   </aside>
 

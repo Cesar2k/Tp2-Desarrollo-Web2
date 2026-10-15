@@ -22,7 +22,7 @@ function CrearNavBar() {
   const header = document.querySelector("header");
   if (!header) return;
 
-  const usuario = sessionStorage.getItem("usuario");
+  const usuario = obtenerUsuarioSesion();                   // el usuario guardado en sessionStorage (o null si no hay sesion)
 
   // Items del menú sin login/registro cuando hay usuario
   const items = usuario
@@ -47,7 +47,7 @@ function CrearNavBar() {
 
      
       <div class="nav-right">
-        ${usuario ? `<span class="usuario">Hola, ${usuario}</span>` : ""}
+        ${usuario ? `<span class="usuario">Hola, ${usuario.nombre}</span>` : ""}
         ${usuario ? `<button class="btnLogout" onclick="logout()">Cerrar sesión</button>` : ""}
       </div>
 
@@ -58,24 +58,68 @@ function CrearNavBar() {
 
 document.addEventListener("DOMContentLoaded", CrearNavBar);
 
-// login: con permisos para cualquier usuario 
-function login() {
+// SESSION STORAGE: guardamos el usuario logueado mientras la pestaña este abierta.
+// sessionStorage solo guarda texto, por eso el objeto se convierte con JSON.stringify y se lee con JSON.parse.
+function guardarUsuarioSesion(usuario) {
+  sessionStorage.setItem("usuario", JSON.stringify(usuario));
+}
+
+function obtenerUsuarioSesion() {
+  try {
+    return JSON.parse(sessionStorage.getItem("usuario"));   // devuelve el objeto, o null si no hay nada guardado
+  } catch {
+    sessionStorage.removeItem("usuario");                    // si quedo guardado algo viejo (por ejemplo solo el email), se descarta
+    return null;
+  }
+}
+
+
+// login real: le preguntamos al backend si el email y la contraseña son correctos
+async function login() {
   const email = document.getElementById("email")?.value.trim() || "";
   const pass  = document.getElementById("password")?.value.trim() || "";
 
   if (!email || !pass) {
-    alert("completa los campos con mail y password.");
+    alert("Completa los campos de email y contraseña.");
     return;
   }
 
-  // dejamos el acceso libre en este caso, no como el anterior que teniamos para usar con contraseña y mail. 
-  sessionStorage.setItem("usuario", email);
-  alert("Inicio sesion con exito!.");
-  window.location.href = baseHome;
+  try {
+    const usuario = await iniciarSesion(email, pass);        // POST /usuarios/login (esta en api.js)
+    guardarUsuarioSesion(usuario);                           // { id, nombre, apellido, email, activo } en sessionStorage
+    alert(`¡Bienvenido, ${usuario.nombre}!`);
+    window.location.href = baseHome;
+  } catch (error) {
+    alert(error.message);                                    // "Email o contraseña incorrectos" o "Usuario inactivo"
+  }
+}
+
+// registro real: crea el usuario en el backend y deja la sesion iniciada
+async function registrarse() {
+  const datos = {
+    nombre: document.getElementById("nombre").value.trim(),
+    apellido: document.getElementById("apellido").value.trim(),
+    email: document.getElementById("email").value.trim(),
+    contraseña: document.getElementById("password").value.trim()
+  };
+
+  if (!datos.nombre || !datos.apellido || !datos.email || !datos.contraseña) {
+    alert("Completa todos los campos.");
+    return;
+  }
+
+  try {
+    const usuario = await registrarUsuario(datos);           // POST /usuarios (esta en api.js)
+    guardarUsuarioSesion(usuario);                           // queda logueado directamente, sin pasar por el login
+    alert(`¡Cuenta creada! Bienvenido, ${usuario.nombre}.`);
+    window.location.href = baseHome;
+  } catch (error) {
+    alert(error.message);                                    // por ejemplo: "El email ya está en uso"
+  }
 }
 
 function logout() {
   sessionStorage.removeItem("usuario");
   alert("Sesión cerrada.");
-  window.location.href = basePages + "login.html";  //redireccionamos al login luedo de cerrar sesion
+  window.location.href = basePages + "login.html";  //redireccionamos al login luego de cerrar sesion
 }

@@ -1,15 +1,32 @@
 # Leufu Mates
 
-Tienda de mates hecha con Node.js y Express 5 para la segunda entrega de Aplicaciones Web II. Maneja usuarios, productos y ventas, y los datos se guardan en archivos JSON dentro de la carpeta `data`.
+Tienda de mates armada con Node.js y Express 5 para Web II. Es un monorepo: el backend (API en Express) está en la raíz y la tienda (front-end) está en la carpeta `public`, que Express sirve con `express.static`. Maneja usuarios, productos y ventas, y los datos se guardan en archivos JSON dentro de la carpeta `data`.
 
-Para correrlo:
+## Cómo probarlo
 
-```
-npm install
-npm run dev
-```
+1. Instalar las dependencias y levantar el servidor:
+   ```
+   npm install
+   npm run dev
+   ```
+2. Abrir **http://localhost:3000** en el navegador.
+3. Ir a **Registro** y crear una cuenta (la sesión queda iniciada). También se puede entrar por **Ingreso** con una cuenta ya creada.
+4. En **Productos** se ven todos los productos a la venta y se pueden filtrar por categoría (Mates, Bombillas, Extras).
+5. Agregar productos al carrito (se guarda en `localStorage`), abrirlo con el botón 🛒, escribir una dirección y presionar **Finalizar compra**.
+6. La orden de compra queda registrada en `data/ventas.json` con el id del usuario, y el stock se descuenta en `data/productos.json`.
 
-Queda en `http://localhost:3000`.
+## Qué incluye esta entrega
+
+| Funcionalidad | Dónde está |
+|---|---|
+| Listado de todos los productos a la venta | `public/pages/productos.html` (pide `GET /productos?disponible=true`) |
+| Filtro por categoría | Botones de filtro en la misma página (`activarFiltros` en `public/js/productos.js`) |
+| Carrito guardado en `localStorage` | `public/js/productos.js` (`obtenerCarrito` y `guardarCarrito`) |
+| Compra contra el back-end | `finalizarCompra` en `public/js/productos.js`, que llama a `POST /ventas` |
+| Login y registro reales | `public/js/navbar.js`, que llama a `POST /usuarios/login` y `POST /usuarios` |
+| Sesión en `sessionStorage` | `guardarUsuarioSesion` y `obtenerUsuarioSesion` en `public/js/navbar.js` |
+| CORS con lista de orígenes permitidos | `index.js`, con la variable `CORS_ORIGINS` del `.env` |
+| Llamadas al backend centralizadas | `public/js/api.js` |
 
 ## Estructura
 
