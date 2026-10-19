@@ -2,46 +2,62 @@
 
 Tienda de mates armada con Node.js y Express 5 para Web II. Es un monorepo: el backend (API en Express) está en la raíz y la tienda (front-end) está en la carpeta `public`, que Express sirve con `express.static`. Maneja usuarios, productos y ventas, y los datos se guardan en archivos JSON dentro de la carpeta `data`.
 
-## Cómo usarlo y probarlo 
+## Cómo usarlo y probarlo
 
 1. Instalar las dependencias y levantar el servidor:
-   ```
+```
    npm install
    npm run dev
-   ```
-2. Abrir **http://localhost:3000** en el navegador.
-3. Ir a **Registro** y crear una cuenta (la sesión queda iniciada). También se puede entrar por **Ingreso** con una cuenta ya creada.
-4. En **Productos** se ven todos los productos a la venta y se pueden filtrar por categoría (Mates, Bombillas, Extras).
-5. Agregar productos al carrito (se guarda en `localStorage`), abrirlo con el botón 🛒, escribir una dirección y presionar **Finalizar compra**.
+```
+2. Abrir http://localhost:3000 en el navegador.
+3. Ir a Registro y crear una cuenta (la sesión queda iniciada). También se puede entrar desde Ingreso con una cuenta ya creada.
+4. En Productos se ven todos los productos a la venta y se pueden filtrar por categoría (Mates, Bombillas, Extras).
+5. Agregar productos al carrito, abrirlo con el botón 🛒, escribir una dirección y apretar "Finalizar compra".
 6. La orden de compra queda registrada en `data/ventas.json` con el id del usuario, y el stock se descuenta en `data/productos.json`.
 
-## Que fue lo que agregamos en esta parte del trabajo? 
+## ¿Qué agregué en esta parte del trabajo?
 
-| Funcionalidad | Dónde está |
-|---|---|
-| Listado de todos los productos a la venta | `public/pages/productos.html` (pide `GET /productos?disponible=true`) |
-| Filtro por categoría | Botones de filtro en la misma página (`activarFiltros` en `public/js/productos.js`) |
-| Carrito guardado en `localStorage` | `public/js/productos.js` (`obtenerCarrito` y `guardarCarrito`) |
-| Compra contra el back-end | `finalizarCompra` en `public/js/productos.js`, que llama a `POST /ventas` |
-| Login y registro reales | `public/js/navbar.js`, que llama a `POST /usuarios/login` y `POST /usuarios` |
-| Sesión en `sessionStorage` | `guardarUsuarioSesion` y `obtenerUsuarioSesion` en `public/js/navbar.js` |
-| CORS con lista de orígenes permitidos | `index.js`, con la variable `CORS_ORIGINS` del `.env` |
-| Llamadas al backend centralizadas | `public/js/api.js` |
+Uní el front que hice en Aplicaciones Web 1 con esta API. El front ahora está en la carpeta `public` y lo sirve el mismo servidor de Express, así que todo corre en `localhost:3000`.
+
+Los productos ya no salen de un JSON del front: la tienda se los pide a la API, y solo muestra los que tienen stock. Las tres páginas por categoría que tenía antes las junté en una sola página de productos con botones para filtrar.
+
+El carrito se guarda en `localStorage`, y al finalizar la compra se manda al backend con `POST /ventas`. El backend revisa el stock, calcula el total y descuenta las unidades. Para saber quién compra, el login y el registro ahora consultan a la API, y el usuario queda guardado en `sessionStorage` mientras la pestaña está abierta.
+
+También configuré CORS con una lista de orígenes permitidos en el `.env`, por si se abre el front desde Live Server, y junté todas las llamadas a la API en `public/js/api.js`.
+
+Algunas tarjetas de productos todavía tienen una imagen genérica porque me faltan las fotos de esos productos. Las voy a agregar más adelante.
 
 ## Estructura
 
 ```
-TiendaMates/
+Tp2-Desarrollo-Web2/
+├── controllers/
+│   └── usuarios.controller.js
 ├── data/
 │   ├── productos.json
 │   ├── usuarios.json
 │   └── ventas.json
+├── middlewares/
+│   └── logger.middleware.js
+├── public/              ← el front (lo sirve Express)
+│   ├── css/
+│   ├── img/
+│   ├── js/
+│   │   ├── api.js
+│   │   ├── navbar.js
+│   │   └── productos.js
+│   ├── pages/
+│   │   ├── login.html
+│   │   ├── productos.html
+│   │   └── registrarse.html
+│   └── index.html
 ├── routes/
 │   ├── productos.router.js
 │   ├── usuarios.router.js
 │   └── ventas.router.js
 ├── utils/
 │   └── archivos.js
+├── .env
 ├── .gitignore
 ├── index.js
 └── package.json
@@ -75,6 +91,8 @@ El login lo hice con POST porque el email y la contraseña son datos sensibles y
 Sobre la integridad de los datos: como cada venta guarda el id del usuario y los ids de los productos, no dejo borrar un usuario que tenga ventas ni un producto que aparezca en alguna venta. En esos casos la API responde 409 y dice qué ventas lo están usando. Para borrar un usuario primero hay que borrar sus ventas, y cuando se borra una venta el stock de los productos vuelve a sumarse.
 
 También al registrar una venta se revisa que el usuario exista y esté activo, y que haya stock de cada producto. El total y la fecha los calcula el servidor.
+
+Una cosa que me queda pendiente: las contraseñas se guardan en texto plano en `usuarios.json`. Para una próxima versión la idea es guardarlas con hash y manejar la sesión con un token.
 
 ## Ejemplos para probar
 
