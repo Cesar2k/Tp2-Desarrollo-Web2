@@ -1,58 +1,67 @@
 [
-    {
-        "id": 1,
-        "id_usuario": 1,
-        "fecha": "2026-05-01",
-        "direccion": "Calle wallaby 42, Sidney, Australia",
-        "total": 43000.00,
-        "productos": [
-            {
-                "id_producto": 1,
-                "cantidad": 1
-            }
-        ]
-    },
-    
-    {
-        "id": 2,
-        "id_usuario": 2,
-        "fecha": "2026-05-02",
-        "direccion": "Avenida siempre viva 742, Springfield",
-        "total": 70000.00,
-        "productos": [
-            {
-                "id_producto": 2,
-                "cantidad": 2
-            }
-        ]
-    },
-
-    {
-        "id": 3,
-        "id_usuario": 4,
-        "fecha": "2026-05-03",
-        "direccion": "4th Street, South Park",
-        "total": 15000.00,
-        "productos": [
-            {
-                "id_producto": 4,
-                "cantidad": 1
-            }
-        ]
-    },
-
-    {
-        "id": 4,
-        "id_usuario": 1,
-        "fecha": "2026-05-04",
-        "direccion": "Calle imaginaria 123",   
-        "total": 20000.00,
-        "productos": [
-            {
-                "id_producto": 5,
-                "cantidad": 1
-            }
-        ]
-    }
-            
+  {
+    "id": 1,
+    "id_usuario": 1,
+    "fecha": "2026-05-01",
+    "direccion": "Calle wallaby 42, Sidney, Australia",
+    "total": 43000,
+    "productos": [
+      {
+        "id_producto": 1,
+        "cantidad": 1
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "id_usuario": 2,
+    "fecha": "2026-05-02",
+    "direccion": "Avenida siempre viva 742, Springfield",
+    "total": 70000,
+    "productos": [
+      {
+        "id_producto": 2,
+        "cantidad": 2
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "id_usuario": 4,
+    "fecha": "2026-05-03",
+    "direccion": "4th Street, South Park",
+    "total": 15000,
+    "productos": [
+      {
+        "id_producto": 4,
+        "cantidad": 1
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "id_usuario": 1,
+    "fecha": "2026-05-04",
+    "direccion": "Calle imaginaria 123",
+    "total": 20000,
+    "productos": [
+      {
+        "id_producto": 5,
+        "cantidad": 1
+      }
+    ]
+  },
+  {
+    "id": 5,
+    "id_usuario": 7,
+    "fecha": "2026-10-15",
+    "direccion": "Monseñor Cagliero 286",
+    "total": 10000,
+    "productos": [
+      {
+        "id_producto": 12,
+        "cantidad": 1
+      }
+    ]
+  }
 ]

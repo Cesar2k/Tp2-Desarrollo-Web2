@@ -2,7 +2,7 @@
 
 Tienda de mates armada con Node.js y Express 5 para Web II. Es un monorepo: el backend (API en Express) está en la raíz y la tienda (front-end) está en la carpeta `public`, que Express sirve con `express.static`. Maneja usuarios, productos y ventas, y los datos se guardan en archivos JSON dentro de la carpeta `data`.
 
-## Cómo probarlo
+## Cómo usarlo y probarlo 
 
 1. Instalar las dependencias y levantar el servidor:
    ```
@@ -15,7 +15,7 @@ Tienda de mates armada con Node.js y Express 5 para Web II. Es un monorepo: el b
 5. Agregar productos al carrito (se guarda en `localStorage`), abrirlo con el botón 🛒, escribir una dirección y presionar **Finalizar compra**.
 6. La orden de compra queda registrada en `data/ventas.json` con el id del usuario, y el stock se descuenta en `data/productos.json`.
 
-## Qué incluye esta entrega
+## Que fue lo que agregamos en esta parte del trabajo? 
 
 | Funcionalidad | Dónde está |
 |---|---|
@@ -47,7 +47,7 @@ TiendaMates/
 └── package.json
 ```
 
-## Rutas
+## Rutas usadas
 
 | Método | Ruta | Descripción |
 |---|---|---|
@@ -78,7 +78,7 @@ También al registrar una venta se revisa que el usuario exista y esté activo, 
 
 ## Ejemplos para probar
 
-Yo lo probé con Postman. En los POST y PUT hay que mandar el body como raw → JSON, si no, la API responde "Faltan datos obligatorios".
+Yo lo probé con Postman. En los POST y PUT hay que mandar el body como raw -- JSON, si no, la API responde "Faltan datos obligatorios".
 
 Crear usuario, `POST /usuarios`:
 ```json

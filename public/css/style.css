@@ -7,7 +7,6 @@
 
 /*
   Paleta de colores: se definen una sola vez y se usan en todo el archivo con var(--nombre).
-  Si queres cambiar un color, se cambia solo aca.
 */
 :root {
   --lima: #86d130;          /* verde principal de la marca */

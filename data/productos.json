@@ -126,7 +126,7 @@
     "descripcion": "Canasta matera de cuero para llevar en el auto",
     "precio": 10000,
     "imagen": "img/canastocueroparaauto.jpg",
-    "stock": 7,
+    "stock": 6,
     "disponible": true,
     "tipo": "extra",
     "destacado": false

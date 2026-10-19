@@ -1,4 +1,4 @@
-//el controlador tiene la logica de cada ruta: valida los datos, lee o escribe el json y arma la respuesta.
+//el controlador tiene la logica de cada ruta, es decir: valida los datos, lee o escribe el json y arma la respuesta.
 //el router solo dice que funcion atiende cada endpoint.
 import { leerDatos, guardarDatos, siguienteId } from "../utils/archivos.js";
 

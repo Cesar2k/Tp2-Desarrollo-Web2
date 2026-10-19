@@ -37,24 +37,23 @@ async function mostrarProductosHome() {                                     //la
     }
 
     //los productos vienen de la API.
-    // CÓMO: await espera a que obtenerProductos() responda y deja en "productos" el arreglo
+    // como: await espera a que obtenerProductos() responda y deja en "productos" el arreglo
     //       (solo los que tienen stock, porque api.js pide ?disponible=true).
-    // Antes eran 3 líneas: armar la ruta del json, hacer el fetch y convertir con response.json().
     const productos = await obtenerProductos();
 
     const tipos = ["Recomendado"];                                           // tipos de productos a mostrar en este caso mate, bombillas y extras
     contenedor.innerHTML = "";
 
-    tipos.forEach(tipo =>                                                                   //foreach para recorrer cada tipo de producto 
+    tipos.forEach(tipo =>                                                    //foreach para recorrer cada tipo de producto 
       {
       // los recomendados son los productos con destacado: true.
-      // CÓMO: filter se queda con los que cumplen la condición y slice(0, 4) toma los primeros 4.
+      // como: filter se queda con los que cumplen la condición y slice(0, 4) toma los primeros 4.
       // Antes se filtraba por tipo === "Recomendado", que eran productos repetidos en el json del front.
       const grupo = productos.filter(p => p.destacado).slice(0, 4);
 
-      const titulo = document.createElement("h2");                                         // creamos un elemento h2 para el titulo de cada tipo de producto                     
-      titulo.textContent = tipo.charAt(0).toUpperCase() + tipo.slice(1) + "s";             // una manita para poner la primera letra en mayuscula y agregarle una s al final para pluralizar
-      contenedor.appendChild(titulo);                                                      //agregamos el titulo al contenedor principal
+      const titulo = document.createElement("h2");                                  // creamos un elemento h2 para el titulo de cada tipo de producto                     
+      titulo.textContent = tipo.charAt(0).toUpperCase() + tipo.slice(1) + "s";      // una manita para poner la primera letra en mayuscula y agregarle una s al final para pluralizar
+      contenedor.appendChild(titulo);                                               //agregamos el titulo al contenedor principal
 
       const subContainer = document.createElement("div");                                  // creamos un subcontenedor para cada grupo de productos
       subContainer.classList.add("sub-container");                                         // le agregamos la clase sub-container para estilos traida de css claramente. 
