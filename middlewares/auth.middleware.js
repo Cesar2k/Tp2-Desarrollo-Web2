@@ -11,7 +11,7 @@ export const verificarToken = (req, res, next) =>
     
     if (tipo !== "Bearer" || !token) //bearer es el tipo de token que se usa en la cabecera, si no es bearer o no hay token se rechaza.
         {
-            return res.status(401).json({ message: "Token no válido" }); //401 es el codigo de error de no autorizado
+            return res.status(401).json({ mensaje: "Token no válido" }); //401 es el codigo de error de no autorizado
         }
     
 
@@ -24,11 +24,11 @@ export const verificarToken = (req, res, next) =>
 
         if (!usuario)
         {
-            return res.status(401).json({ message: "el usuario no fue encontrado" }); //401 es el codigo de error de no autorizado
+            return res.status(401).json({ mensaje: "el usuario no fue encontrado" }); //401 es el codigo de error de no autorizado
         }
         if (!usuario.activo)
         {
-            return res.status(403).json({ message: "usuario inactivo" }); //403 es el codigo de error de prohibido
+            return res.status(403).json({ mensaje: "usuario inactivo" }); //403 es el codigo de error de prohibido
         }
 
         //aca dejsmoa el usuario disponible para el controlador que sigue y pasamos al siguiente middleware o controlador
@@ -40,6 +40,6 @@ export const verificarToken = (req, res, next) =>
         const mensaje = error.name === "TokenExpiredError"
         ? "la session experi, volve a iniciar sesion"
         : "Token no válido";
-        return res.status(401).json({ message: mensaje }); //401 es el codigo de error de no autorizado
+        return res.status(401).json({ mensaje: mensaje }); //401 es el codigo de error de no autorizado
     }
 };
