@@ -5,7 +5,7 @@
     "descripcion": "Mate de acero inoxidable con bombilla y funda de cuero.",
     "precio": 43000,
     "imagen": "img/camionero.JPEG",
-    "stock": 10,
+    "stock": 9,
     "disponible": true,
     "tipo": "mate",
     "destacado": true
@@ -16,7 +16,7 @@
     "descripcion": "Mate de madera con bombilla de regalo.",
     "precio": 35000,
     "imagen": "https://http2.mlstatic.com/D_NQ_NP_2X_991905-MLA50118788288_052022-F.webp",
-    "stock": 5,
+    "stock": 15,
     "disponible": true,
     "tipo": "mate",
     "destacado": false
@@ -38,7 +38,7 @@
     "descripcion": "Mate galleta con bombilla de acero inoxidable.",
     "precio": 15000,
     "imagen": "https://http2.mlstatic.com/D_NQ_NP_2X_991905-MLA50118788288_052022-F.webp",
-    "stock": 20,
+    "stock": 30,
     "disponible": true,
     "tipo": "mate",
     "destacado": false
@@ -49,7 +49,7 @@
     "descripcion": "Mate de cerámica pintado a mano.",
     "precio": 20000,
     "imagen": "https://http2.mlstatic.com/D_NQ_NP_2X_991905-MLA50118788288_052022-F.webp",
-    "stock": 15,
+    "stock": 25,
     "disponible": true,
     "tipo": "mate",
     "destacado": false
@@ -60,7 +60,7 @@
     "descripcion": "Calabaza pulida con base de alpaca artesanal",
     "precio": 40000,
     "imagen": "img/imperialbasealpaca.JPEG",
-    "stock": 8,
+    "stock": 7,
     "disponible": true,
     "tipo": "mate",
     "destacado": true

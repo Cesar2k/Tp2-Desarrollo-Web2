@@ -300,15 +300,15 @@ async function finalizarCompra() {
 
   // 2. armamos la venta con el formato que espera el backend
   const venta = {
-    id_usuario: usuario.id,
+    //id_usuario: usuario.id. de aca elimine esa linea porque la toma directo desde el token
     direccion: direccion,
     productos: carrito.map(p => ({ id_producto: p.id, cantidad: p.cantidad }))
   };
 
   try {
-    const ventaCreada = await crearVenta(venta);                        // POST /ventas (esta en api.js)
+    const ventaCreada = await crearVenta(venta, obtenerToken());       // POST /ventas con el token (esta en api.js)
 
-    // 3. si salio bien: vaciamos el carrito y mostramos el numero de orden y el total que calculo el backend
+    //si salio bien: vaciamos el carrito y mostramos el numero de orden y el total que calculo el backend
     localStorage.removeItem("carrito");
     actualizarCarrito();
     document.getElementById("direccionEnvio").value = "";
@@ -318,12 +318,20 @@ async function finalizarCompra() {
     productosCache = await obtenerProductos();
     const filtroActivo = document.querySelector(".btn-filtro.activo");
     if (filtroActivo) mostrarProductos(filtroActivo.dataset.tipo);      // pagina de productos
-    else mostrarProductosHome();                                        // home
-  } catch (error) {
+    else mostrarProductosHome();                                        
+  }
+
+   catch (error) 
+   {
+    if (error.status === 401) {                                         // token vencido o invalido
+      borrarSesion();
+      alert("Tu sesión expiró. Inicia sesión de nuevo para comprar.");
+      window.location.href = estoyEnPages ? "./login.html" : "./pages/login.html";
+      return;
+    }
     mensaje.textContent = error.message;                                // por ejemplo: "Stock insuficiente para ..."
   }
 }
-
 
 // boton de vaciar y carrito flotante 
 document.addEventListener("DOMContentLoaded", () => {                     //cuando el documento este cargado 
@@ -346,4 +354,4 @@ document.addEventListener("DOMContentLoaded", () => {                     //cuan
   } 
 
   actualizarCarrito();
-});
+}); 

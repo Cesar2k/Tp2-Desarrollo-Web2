@@ -58,17 +58,28 @@ function CrearNavBar() {
 
 document.addEventListener("DOMContentLoaded", CrearNavBar);
 
-// SESSION STORAGE: guardamos el usuario logueado mientras la pestaña este abierta.
+// SESSION STORAGE: guardamos el usuario logueado y su token mientras la pestaña este abierta.
 // sessionStorage solo guarda texto, por eso el objeto se convierte con JSON.stringify y se lee con JSON.parse.
-function guardarUsuarioSesion(usuario) {
+function guardarUsuarioSesion(usuario, token) {
   sessionStorage.setItem("usuario", JSON.stringify(usuario));
+  sessionStorage.setItem("token", token);                    // el token lo pide el backend para comprar
+}
+
+function obtenerToken() {
+  return sessionStorage.getItem("token");                    // devuelve el token, o null si no hay sesion
+}
+
+function borrarSesion() {
+  sessionStorage.removeItem("usuario");
+  sessionStorage.removeItem("token");
 }
 
 function obtenerUsuarioSesion() {
+  if (!obtenerToken()) return null;                          // sin token no hay sesion valida (por ejemplo, una sesion vieja de la entrega 3)
   try {
     return JSON.parse(sessionStorage.getItem("usuario"));   // devuelve el objeto, o null si no hay nada guardado
   } catch {
-    sessionStorage.removeItem("usuario");                    // si quedo guardado algo viejo (por ejemplo solo el email), se descarta
+    borrarSesion();                                          // si quedo guardado algo roto, se descarta
     return null;
   }
 }
@@ -85,8 +96,8 @@ async function login() {
   }
 
   try {
-    const usuario = await iniciarSesion(email, pass);        // POST /usuarios/login (esta en api.js)
-    guardarUsuarioSesion(usuario);                           // { id, nombre, apellido, email, activo } en sessionStorage
+    const { token, usuario } = await iniciarSesion(email, pass);   // POST /usuarios/login (esta en api.js)
+    guardarUsuarioSesion(usuario, token);                          // usuario y token en sessionStorage
     alert(`¡Bienvenido, ${usuario.nombre}!`);
     window.location.href = baseHome;
   } catch (error) {
@@ -94,7 +105,7 @@ async function login() {
   }
 }
 
-// registro real: crea el usuario en el backend y deja la sesion iniciada
+// registro real: crea el usuario en el backend y despues inicia sesion para obtener el token
 async function registrarse() {
   const datos = {
     nombre: document.getElementById("nombre").value.trim(),
@@ -109,8 +120,9 @@ async function registrarse() {
   }
 
   try {
-    const usuario = await registrarUsuario(datos);           // POST /usuarios (esta en api.js)
-    guardarUsuarioSesion(usuario);                           // queda logueado directamente, sin pasar por el login
+    await registrarUsuario(datos);                                          // POST /usuarios (esta en api.js)
+    const { token, usuario } = await iniciarSesion(datos.email, datos.contraseña);   // el registro no da token, el login si
+    guardarUsuarioSesion(usuario, token);                                   // queda con la sesion iniciada
     alert(`¡Cuenta creada! Bienvenido, ${usuario.nombre}.`);
     window.location.href = baseHome;
   } catch (error) {
@@ -119,7 +131,7 @@ async function registrarse() {
 }
 
 function logout() {
-  sessionStorage.removeItem("usuario");
+  borrarSesion();                                            // borra el usuario y el token
   alert("Sesión cerrada.");
-  window.location.href = basePages + "login.html";  //redireccionamos al login luego de cerrar sesion
+  window.location.href = basePages + "login.html";           // redireccionamos al login luego de cerrar sesion
 }

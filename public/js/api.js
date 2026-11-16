@@ -33,7 +33,7 @@ async function iniciarSesion(email, contraseña) {
   if (!respuesta.ok) {
     throw new Error(datos.mensaje);                        // por ejemplo: "Email o contraseña incorrectos"
   }
-  return datos.usuario;                                    // { id, nombre, apellido, email, activo }
+    return { token: datos.token, usuario: datos.usuario };   // el token se guarda para usarlo al comprar                                   // { id, nombre, apellido, email, activo }
 }
 
 // POST /usuarios : crea un usuario nuevo en el backend (registro).
@@ -56,17 +56,22 @@ async function registrarUsuario(datos) {
 // POST /ventas : registra la compra en el backend.
 // venta = { id_usuario, direccion, productos: [ { id_producto, cantidad }, ... ] }
 // El backend valida el stock, calcula el total y descuenta las unidades.
-async function crearVenta(venta) {
+async function crearVenta(venta, token) {
   const respuesta = await fetch(`${API_URL}/ventas`, {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
+    headers: { 
+      "Content-Type": "application/json",
+      "Authorization": `Bearer ${token}` 
+    },
     body: JSON.stringify(venta)
   });
 
   const datos = await respuesta.json();
 
   if (!respuesta.ok) {
-    throw new Error(datos.mensaje);                        // por ejemplo: "Stock insuficiente para ..."
+    const error = new Error(datos.mensaje);                // por ejemplo: "Stock insuficiente para x ciosa"
+    error.status = respuesta.status;                       // guardamos el codigo para saber si fue un 401 o cualquier otro.
+    throw error;
   }
   return datos.venta;                                      // { id, id_usuario, fecha, direccion, total, productos }
 }

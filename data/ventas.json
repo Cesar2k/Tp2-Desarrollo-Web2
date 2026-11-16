@@ -63,5 +63,31 @@
         "cantidad": 1
       }
     ]
+  },
+  {
+    "id": 6,
+    "id_usuario": 7,
+    "fecha": "2026-11-16",
+    "direccion": "aaaaaaaaa1",
+    "total": 40000,
+    "productos": [
+      {
+        "id_producto": 6,
+        "cantidad": 1
+      }
+    ]
+  },
+  {
+    "id": 7,
+    "id_usuario": 7,
+    "fecha": "2026-11-16",
+    "direccion": "1",
+    "total": 43000,
+    "productos": [
+      {
+        "id_producto": 1,
+        "cantidad": 1
+      }
+    ]
   }
 ]
