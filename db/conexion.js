@@ -16,4 +16,7 @@ export const conectarDB = async () =>
         console.log("Conectado a la DB de MongoDB");
     };
 
-    export const coleccion = (nombre) =>  db.collection(nombre); //esta funcion nos devuelve la coleccion que le pasemos por parametro.
+export const coleccion = (nombre) =>  db.collection(nombre); //esta funcion nos devuelve la coleccion que le pasemos por parametro.
+
+//cierra la conexion. la usan los scripts que terminan cuando hacen su trabajo
+export const desconectarDB = () => cliente.close();
