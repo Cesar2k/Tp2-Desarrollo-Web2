@@ -4,7 +4,7 @@
     "nombre": "Cesar",
     "apellido": "Fiad",
     "email": "cesarfiad2000@gmail.com",
-    "contraseña": "1111",
+    "contraseña": "$2b$10$SjsZIhIKbBCEVxB6z0hgQO24DKWzcaHNPZIggF1H.7d62K/ZgmZhG",
     "activo": true
   },
   {
@@ -12,7 +12,7 @@
     "nombre": "Lara",
     "apellido": "Avila Diaz",
     "email": "laraavila2000@gmail.com",
-    "contraseña": "12345",
+    "contraseña": "$2b$10$U1sZN9/Z2i5/QA9zRQLFNeeaAVlM2kNAInSYCqnvHzuW/0LSymQFO",
     "activo": true
   },
   {
@@ -20,7 +20,7 @@
     "nombre": "Noelia",
     "apellido": "Fiad",
     "email": "noeliafiad2000@gmail.com",
-    "contraseña": "12344",
+    "contraseña": "$2b$10$gcmyC3QlO3Vu4PdLfjT9AegttpKihiyF.BzroQieFk/qDnKpF/pze",
     "activo": true
   },
   {
@@ -28,7 +28,7 @@
     "nombre": "Fernando",
     "apellido": "Fiad",
     "email": "fernandofiad2000@gmail.com",
-    "contraseña": "23445",
+    "contraseña": "$2b$10$ehBLG0NAahxnLw0U5FPmBeD7QiQ33uz2EbV5oPQmQ4VSFsgjdpYau",
     "activo": false
   },
   {
@@ -36,7 +36,7 @@
     "nombre": "Oriana",
     "apellido": "Fiad",
     "email": "Orianafiad2017@gmail.com",
-    "contraseña": "9999",
+    "contraseña": "$2b$10$a2P524hd6/zJe5/Ajv9jm.Oxv5iDdplQkgTQwopa9a4KK6xtz0Rey",
     "activo": true
   },
   {
@@ -44,7 +44,7 @@
     "nombre": "Marcos",
     "apellido": "Fiad",
     "email": "Cesarfiad2000@hotmail.com",
-    "contraseña": "1234",
+    "contraseña": "$2b$10$m1860ak86VkDzDVcDL4wk.l9o7CDxZbWhx3OOCDlZze7uT0OPcswm",
     "activo": true
   }
 ]
