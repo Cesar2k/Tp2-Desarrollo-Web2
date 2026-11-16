@@ -16,7 +16,7 @@ try
         const datos = leerDatos (nombreColeccion);
         await coleccion (nombreColeccion).deleteMany({}); //borramos todos los documentos de la coleccion
         await coleccion (nombreColeccion).insertMany(datos);
-        await coleccion (nombreColeccion).createIndex({ id: 1}, {unique: true}); //creamos un indice unico en el campo nombre para que no se repitan los nombres de los productos
+        await coleccion (nombreColeccion).createIndex({ id: 1}, {unique: true}); //creamos un indice unico en el campo id para que no se repitan los ids de los productos
 
         console.log(`Coleccion ${nombreColeccion}: ${datos.length} documentos cargados`);
     }
