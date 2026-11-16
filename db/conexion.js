@@ -20,3 +20,11 @@ export const coleccion = (nombre) =>  db.collection(nombre); //esta funcion nos 
 
 //cierra la conexion. la usan los scripts que terminan cuando hacen su trabajo
 export const desconectarDB = () => cliente.close();
+
+
+//devuelve el proximo id numerico de una coleccion (el mayor + 1, o 1 si esta vacia).
+//reemplaza al siguienteId de utils/archivos.js
+export const siguienteId = async (nombre) => {
+    const [ultimo] = await coleccion(nombre).find().sort({ id: -1 }).limit(1).toArray();
+    return ultimo ? ultimo.id + 1 : 1;
+};
