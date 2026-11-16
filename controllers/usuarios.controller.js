@@ -1,6 +1,8 @@
 //el controlador tiene la logica de cada ruta, es decir: valida los datos, lee o escribe el json y arma la respuesta.
 //el router solo dice que funcion atiende cada endpoint.
 import { leerDatos, guardarDatos, siguienteId } from "../utils/archivos.js";
+import {hashClave, compararClave} from "../utils/hashing.js";    //N.importamos la funcion de seguridad para hashear la contraseña y compararla
+import {generarToken} from "../utils/token.js";   //N. Generamos el token de acceso para el usuario logueado
 
 //saca la contraseña antes de mandar un usuario en la respuesta (nunca se debe devolver al cliente)
 const sinContraseña = ({ contraseña, ...usuario }) => usuario;
@@ -23,7 +25,7 @@ export const obtenerUsuario = (req, res) => {
 };
 
 //POST /usuarios: agrega un nuevo usuario al archivo usuarios.json, le asigna un id autoincremental y devuelve el usuario creado
-export const crearUsuario = (req, res) => {
+export const crearUsuario = async (req, res) => {
     const {nombre, apellido, email, contraseña} = req.body;
     if (!nombre || !apellido || !email || !contraseña) {
         return res.status(400).json({ mensaje: "Faltan datos obligatorios" });
@@ -37,7 +39,7 @@ export const crearUsuario = (req, res) => {
         nombre,
         apellido,
         email,
-        contraseña,
+        contraseña: await hashClave(contraseña), //N. hasheamos la contraseña antes de guardarla (no la enc)
         activo: true
     };
     usuarios.push(nuevoUsuario);
@@ -48,22 +50,28 @@ export const crearUsuario = (req, res) => {
 
 //Post /usuarios/login valida el mail y contraseña del usuario. 
 //usamos POST porque son datos sensibles y no queremos que queden en la url.
-export const login = (req, res) => {
-        const {email, contraseña} = req.body;
-        if (!email || !contraseña) {
-            return res.status(400).json({ mensaje: "Faltan datos obligatorios" });
-        }
-        
-        const usuarios = leerDatos("usuarios").find((usuario) => 
-            usuario.email.toLowerCase() === email.toLowerCase() && usuario.contraseña === contraseña);
- 
-        if (!usuarios) {
-            return res.status(401).json({ mensaje: "Email o contraseña incorrectos" });
-        }
-        if (!usuarios.activo) {
-            return res.status(403).json({ mensaje: "Usuario inactivo" });
-        }
-        res.json({ mensaje: "Login exitoso", usuario: sinContraseña(usuarios )});
+export const login = async (req, res) => {
+    const {email, contraseña} = req.body;
+    if (!email || !contraseña) {
+        return res.status(400).json({ mensaje: "Faltan datos obligatorios" });
+    }
+
+    // buscamos el usuario SOLO por email (la contraseña guardada es un hash, no se puede comparar con ===)
+    const usuario = leerDatos("usuarios").find((usuario) =>
+        usuario.email.toLowerCase() === email.toLowerCase());
+
+    //2. si existe, comparamos la contraseña escrita con el hash guardado
+    const contraseñaCorrecta = usuario ? await compararClave(contraseña, usuario.contraseña) : false;
+
+    if (!contraseñaCorrecta) {
+        return res.status(401).json({ mensaje: "Email o contraseña incorrectos" });
+    }
+    if (!usuario.activo) {
+        return res.status(403).json({ mensaje: "Usuario inactivo" });
+    }
+
+    //3. todo bien: devolvemos el token junto con los datos del usuario
+    res.json({ mensaje: "Login exitoso", token: generarToken(usuario), usuario: sinContraseña(usuario) });
 };
 //Por que usamos post y no get para login?
 //  Porque los datos de login son sensibles 
@@ -73,7 +81,7 @@ export const login = (req, res) => {
 
 //PUT /usuarios/:id: actualiza los datos de un usuario. 
 //solo modifica los campos que le pasemos en el body, si no encuentra el usuario devuelve un mensaje de error
-export const actualizarUsuario = (req, res) => {
+export const actualizarUsuario = async (req, res) => {
     const id = Number(req.params.id);
     const {nombre, apellido, email, contraseña, activo} = req.body;
     const usuarios = leerDatos("usuarios");
@@ -92,7 +100,7 @@ export const actualizarUsuario = (req, res) => {
             ...(nombre !== undefined && { nombre }),
             ...(apellido !== undefined && { apellido }),
             ...(email !== undefined && { email }),
-            ...(contraseña !== undefined && { contraseña }),
+            ...(contraseña !== undefined && { contraseña: await hashClave(contraseña) }), //N. hasheamos la contraseña antes de guardarla (no la enc)
             ...(activo !== undefined && { activo }),
         };
         guardarDatos("usuarios", usuarios);
