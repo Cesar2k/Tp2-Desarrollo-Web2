@@ -1,5 +1,6 @@
 import { Router } from "express";
 import { leerDatos, guardarDatos, siguienteId } from "../utils/archivos.js";
+import { verificarToken } from "../middlewares/auth.middleware.js";   //NUEVO: JWT
 
 const router = Router();
 
@@ -44,23 +45,18 @@ router.get("/:id", (req, res) => {
     });
 });
 
-//POST /ventas: registra una venta nueva. valida usuario y stock, calcula el total y descuenta unidades
-router.post("/", (req, res) => {
-    const { id_usuario, direccion, productos: items } = req.body;
+//POST /ventas: registra una venta nueva. valida stock, calcula el total y descuenta unidades
+//NUEVO: esta protegida con verificarToken, solo puede comprar un usuario con sesion iniciada
+router.post("/", verificarToken, (req, res) => {
+    const { direccion, productos: items } = req.body;
 
-    if (!id_usuario || !direccion || !Array.isArray(items) || items.length === 0) {
-        return res.status(400).json({ mensaje: "Debe enviar id_usuario, direccion y al menos un producto" });
+    if (!direccion || !Array.isArray(items) || items.length === 0) {
+        return res.status(400).json({ mensaje: "Debe enviar direccion y al menos un producto" });
     }
 
-    //1. el usuario tiene que existir y estar activo
-    const usuario = leerDatos("usuarios").find((usuario) => usuario.id === Number(id_usuario));
-
-    if (!usuario) {
-        return res.status(404).json({ mensaje: `No existe el usuario con id ${id_usuario}` });
-    }
-    if (!usuario.activo) {
-        return res.status(403).json({ mensaje: "El usuario está inactivo y no puede comprar" });
-    }
+    //1. NUEVO: el usuario sale del token (lo cargo verificarToken), no del body.
+    //   asi nadie puede comprar a nombre de otro. el middleware ya comprobo que existe y que esta activo.
+    const usuario = req.usuario;
 
     //2. se valida cada producto ANTES de modificar nada
     const productos = leerDatos("productos");
