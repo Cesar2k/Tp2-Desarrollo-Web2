@@ -86,10 +86,10 @@ ruta → middleware (si hace falta) → controlador → modelo → MongoDB
 ```
 
 ### El archivo .env
-Esto lo cambie y ahora ultimo deje libre el .env para evitar cualquier tipo de problema con la entrega. Pero de todas formas dejo esto
-para que quede registro de que antes no estaba y de que si uso la tienda mas adelante lo tengo que volver a poner en Gitignore.
-El `.env` no está en el repositorio porque tiene la clave de los tokens (lo agregué al `.gitignore`). En su lugar subí `.env.example`, que tiene las mismas variables sin la clave: `PORT`, `CORS_ORIGINS`, `JWT_SECRET`, `JWT_EXPIRA`, `MONGO_URI` y `MONGO_DB`.
-(QUIZAS ACA ME EQUIVOCO, PERO ESPERO LO PUEDA VER SINO HABILITO NUEVAMENTE EL .ENV)
+
+Durante el desarrollo saqué el `.env` del repo (lo agregué al `.gitignore`) porque tiene la clave que firma los tokens, y subí `.env.example` como plantilla con las mismas variables: `PORT`, `CORS_ORIGINS`, `JWT_SECRET`, `JWT_EXPIRA`, `MONGO_URI` y `MONGO_DB`.
+
+Para esta entrega lo volví a agregar, así el proyecto se puede ejecutar sin configurar nada. En un proyecto real el `.env` no lo subiria: habría que volver a agregarlo al `.gitignore`.
 
 ## Estructura
 
