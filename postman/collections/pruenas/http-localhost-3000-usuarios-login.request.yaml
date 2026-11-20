@@ -1,9 +1,0 @@
-$kind: http-request
-name: http://localhost:3000/usuarios/login
-description: ""
-url: http://localhost:3000/usuarios/login
-method: POST
-body:
-  type: json
-  content: '{ "email": "cesarfiad2000@gmail.com", "contraseña": "1111" }'
-order: 1000

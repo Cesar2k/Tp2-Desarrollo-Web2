@@ -1,0 +1,23 @@
+$kind: http-request
+description: Devuelve el token JWT. El script de Tests lo guarda en la variable {{token}} de la coleccion.
+url: "{{baseUrl}}/usuarios/login"
+method: POST
+headers:
+  Content-Type: application/json
+body:
+  type: json
+  content: |-
+    {
+      "email": "cesarfiad2000@gmail.com",
+      "contraseña": "1111"
+    }
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test("Responde 200", () => pm.response.to.have.status(200));
+      const datos = pm.response.json();
+      pm.collectionVariables.set("token", datos.token);
+      pm.test("Trae token", () => pm.expect(datos.token).to.be.a("string"));
+      pm.test("No devuelve la contraseña", () => pm.expect(datos.usuario).to.not.have.property("contraseña"));
+    language: text/javascript
+order: 2000

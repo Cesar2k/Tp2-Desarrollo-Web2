@@ -1,0 +1,35 @@
+$kind: http-request
+description: Usa el token guardado por el login. El id_usuario de la venta sale del token, no del body.
+url: "{{baseUrl}}/ventas"
+method: POST
+headers:
+  Content-Type: application/json
+body:
+  type: json
+  content: |-
+    {
+      "direccion": "San Martín 100",
+      "productos": [
+        {
+          "id_producto": 1,
+          "cantidad": 1
+        },
+        {
+          "id_producto": 4,
+          "cantidad": 2
+        }
+      ]
+    }
+auth:
+  type: bearer
+  credentials:
+    token: "{{token}}"
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test("Responde 201", () => pm.response.to.have.status(201));
+      const venta = pm.response.json().venta;
+      pm.collectionVariables.set("idVenta", venta.id);
+      pm.test("El comprador sale del token", () => pm.expect(venta.id_usuario).to.eql(1));
+    language: text/javascript
+order: 4000

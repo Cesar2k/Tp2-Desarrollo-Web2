@@ -2,6 +2,13 @@
 workspace:
   id: 504047d5-77b6-46c2-8505-4cc5b8ac731d
 
+# Each entry here maps a local resource to one or more corresponding objects in Postman Cloud
+
+cloudResources:
+  collections:
+    ../postman/collections/Leufu Mates - Video PRUEBA 1: 5de9df3a-efd6-44b1-bf31-8ae48f2fba24
+    ../postman/collections/Leufu Mates - Video PRUEBA2: 03e0a318-2481-4bbf-bd3e-c925c63e13ec
+
 # All resources in the `postman/` folder are automatically registered in Local View.
 # Point to additional files outside the `postman/` folder to register them individually. Example:
 #localResources:

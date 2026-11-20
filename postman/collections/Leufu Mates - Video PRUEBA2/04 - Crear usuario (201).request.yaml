@@ -1,0 +1,22 @@
+$kind: http-request
+description: Despues se puede ver en Compass que la contraseña quedo guardada como hash.
+url: "{{baseUrl}}/usuarios"
+method: POST
+headers:
+  Content-Type: application/json
+body:
+  type: json
+  content: |-
+    {
+      "nombre": "Fernanda",
+      "apellido": "Fiad",
+      "email": "fernanda@mail.com",
+      "contraseña": "567891"
+    }
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test("Responde 201", () => pm.response.to.have.status(201));
+      pm.collectionVariables.set("idUsuario", pm.response.json().usuario.id);
+    language: text/javascript
+order: 5000

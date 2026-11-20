@@ -1,0 +1,23 @@
+$kind: http-request
+name: "00 - PREPSG: crear producto (201)"
+url: "{{baseUrl}}/productos"
+method: POST
+headers:
+  Content-Type: application/json
+body:
+  type: json
+  content: |-
+    {
+      "nombre": "Mate imperial",
+      "descripcion": "Calabaza forrada en cuero",
+      "precio": 60000,
+      "stock": 8,
+      "tipo": "mate"
+    }
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test("Responde 201", () => pm.response.to.have.status(201));
+      pm.collectionVariables.set("idProducto", pm.response.json().producto.id);
+    language: text/javascript
+order: 1000

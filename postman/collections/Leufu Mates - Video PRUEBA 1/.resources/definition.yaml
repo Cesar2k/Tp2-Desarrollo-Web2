@@ -1,0 +1,26 @@
+$kind: collection
+description: "Las 14 consultas del video, en orden. Ejecutar de arriba hacia abajo: la 01 guarda el token, la 06 el id de la venta y la 10 el id del producto."
+variables:
+  - key: baseUrl
+    value: http://localhost:3000
+    disabled: false
+    secret: false
+  - key: token
+    value: ""
+    disabled: false
+    secret: false
+  - key: idVenta
+    value: ""
+    disabled: false
+    secret: false
+  - key: idProducto
+    value: ""
+    disabled: false
+    secret: false
+  - key: idUsuario
+    value: ""
+    disabled: false
+    secret: false
+  - key: auth_secret_0w4w
+    secret: true
+    disabled: false

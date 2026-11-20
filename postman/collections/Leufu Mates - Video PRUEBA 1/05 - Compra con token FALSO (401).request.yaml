@@ -1,0 +1,30 @@
+$kind: http-request
+url: "{{baseUrl}}/ventas"
+method: POST
+headers:
+  Content-Type: application/json
+body:
+  type: json
+  content: |-
+    {
+      "direccion": "San Martín 100",
+      "productos": [
+        {
+          "id_producto": 1,
+          "cantidad": 1
+        },
+        {
+          "id_producto": 4,
+          "cantidad": 2
+        }
+      ]
+    }
+auth:
+  type: bearer
+  credentials:
+    token: "{{auth_secret_0w4w}}"
+scripts:
+  - type: afterResponse
+    code: pm.test("Responde 401", () => pm.response.to.have.status(401));
+    language: text/javascript
+order: 9000

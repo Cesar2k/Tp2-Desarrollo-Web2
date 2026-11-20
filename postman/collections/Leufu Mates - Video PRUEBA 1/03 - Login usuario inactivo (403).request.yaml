@@ -1,0 +1,17 @@
+$kind: http-request
+url: "{{baseUrl}}/usuarios/login"
+method: POST
+headers:
+  Content-Type: application/json
+body:
+  type: json
+  content: |-
+    {
+      "email": "fernandofiad2000@gmail.com",
+      "contraseña": "23445"
+    }
+scripts:
+  - type: afterResponse
+    code: pm.test("Responde 403", () => pm.response.to.have.status(403));
+    language: text/javascript
+order: 7000

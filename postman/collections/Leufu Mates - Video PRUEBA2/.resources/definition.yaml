@@ -1,0 +1,8 @@
+$kind: collection
+description: Las consultas de la parte de Postman del video. La 00 se ejecuta antes de grabar (crea el producto que modifica la 05). Despues, de la 01 a la 06 en orden.
+variables:
+  baseUrl: http://localhost:3000
+  token: ""
+  idVenta: ""
+  idProducto: ""
+  idUsuario: ""
