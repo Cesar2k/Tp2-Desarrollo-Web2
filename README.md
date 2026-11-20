@@ -85,7 +85,8 @@ ruta → middleware (si hace falta) → controlador → modelo → MongoDB
 ```
 
 ### El archivo .env
-
+Esto lo cambie y ahora ultimo deje libre el .env para evitar cualquier tipo de problema con la entrega. Pero de todas formas dejo esto
+para que quede registro de que antes no estaba y de que si uso la tienda mas adelante lo tengo que volver a poner en Gitignore.
 El `.env` no está en el repositorio porque tiene la clave de los tokens (lo agregué al `.gitignore`). En su lugar subí `.env.example`, que tiene las mismas variables sin la clave: `PORT`, `CORS_ORIGINS`, `JWT_SECRET`, `JWT_EXPIRA`, `MONGO_URI` y `MONGO_DB`.
 (QUIZAS ACA ME EQUIVOCO, PERO ESPERO LO PUEDA VER SINO HABILITO NUEVAMENTE EL .ENV)
 
@@ -133,7 +134,7 @@ Tp2-Desarrollo-Web2/
 │   ├── archivos.js
 │   ├── hashing.js
 │   └── token.js
-├── .env.example
+├── .env y .env.example
 ├── .gitignore
 ├── index.js
 └── package.json
@@ -262,12 +263,3 @@ Modificar venta, `PUT /ventas/1`:
 ```
 
 Para probar la integridad se puede intentar `DELETE /usuarios/1`, que tiene ventas y no se deja borrar, o `DELETE /productos/1`, que está en la venta 1.
-
-## Lo que me gustaría mejorar
-
-- Que la compra use una transacción de MongoDB, así el descuento de stock y la venta se guardan juntos o no se guarda nada.
-- Agregar roles (administrador y cliente) y pedir token también para crear, modificar o borrar productos.
-- Validar los datos con una librería como Zod o Joi en lugar de tantos `if`.
-- Escribir tests para la API.
-- Publicarla usando MongoDB Atlas.
-- Completar las fotos que faltan en algunas tarjetas de productos.
